@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Main {
 
-    public static void isYearLeap(int year) {
+    private static void printLeapYear(int year) {
         if (year <= 0) {
             System.out.println("Некорректное значение года");
             return;
@@ -14,7 +14,7 @@ public class Main {
         }
     }
 
-    public static void getClientOSAndDeviceYear(int clientOS, int clientDeviceYear) {
+    private static void printClientOSAndDeviceYear(int clientOS, int clientDeviceYear) {
 
         int currentYear = LocalDate.now().getYear();
 
@@ -43,16 +43,24 @@ public class Main {
 
     }
 
-    public static void getDeliveryTime(int distance) {
+    private static int getDeliveryTime(int distance) {
         if (distance < 0) {
-            System.out.println("Некорректно указано расстояние");
-            return;
+            System.out.println("Вы указали расстояние меньше нуля, укажите значение больше нуля");
+            return 0;
         }
-        int time = 0;
-        for (int i = 0; i < distance; i += 40) {
-            time = time + 1;
+        int time = 1;
+        if (distance <= 20) {
+        time = 1;
+        } else {
+            int a = distance - 20;
+            if (a % 40 == 0) {
+                time = time + a / 40;
+            } else {
+                time = time + a / 40 + 1;
+            }
         }
-        System.out.println("Потребуется дней: " + time);
+        return time;
+
     }
 
 
@@ -61,18 +69,18 @@ public class Main {
         //task 1
 
         int year = 2020;
-        isYearLeap(year);
+        printLeapYear(year);
 
         //task 2
 
         int clientDeviceYear = 2019;
         int clientOS = 1;
-        getClientOSAndDeviceYear(clientOS, clientDeviceYear);
+        printClientOSAndDeviceYear(clientOS, clientDeviceYear);
 
         //task3
 
-        int distance = 68;
-        getDeliveryTime(distance);
+        int distance = 105;
+        System.out.println("Потребуется дней: " + getDeliveryTime(distance));
 
 
     }
